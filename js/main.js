@@ -101,8 +101,38 @@ const GameController = (player0, player1) => {
   };
 };
 
+const Settings = (() => {
+  function getPlayerX() {
+    const player = localStorage.getItem("playerX");
+    if (!player) return "X";
+    return player;
+  }
+
+  function getPlayerO() {
+    const player = localStorage.getItem("playerO");
+    if (!player) return "O";
+    return player;
+  }
+
+  function setPlayerX(player) {
+    localStorage.setItem("playerX", player);
+  }
+
+  function setPlayerO(player) {
+    localStorage.setItem("playerO", player);
+  }
+
+  return {
+    getPlayerO,
+    getPlayerX,
+    setPlayerO,
+    setPlayerX,
+  };
+})();
+
 const ScreenController = () => {
-  let game = GameController("X", "O");
+  const settings = Settings;
+  let game = GameController(settings.getPlayerX(), settings.getPlayerO());
 
   function updateScreen() {
     const positions = [...document.querySelectorAll("[data-position]")];
@@ -143,6 +173,27 @@ const ScreenController = () => {
 
     const restartButton = document.querySelector("button#restart");
     restartButton.addEventListener("click", clickHandlerRestart);
+
+    const settingsButton = document.querySelector("button#settings-button");
+    settingsButton.addEventListener("click", clickHandlerSettings);
+
+    const form = document.querySelector("form#settings-dialog");
+    form.addEventListener("submit", formSubmitHandler);
+  }
+
+  function formSubmitHandler(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const playerX = formData.get("settings-playerx");
+    const playerO = formData.get("settings-playero");
+
+    settings.setPlayerX(playerX);
+    settings.setPlayerO(playerO);
+
+    form.reset();
+    document.querySelector("dialog").close();
   }
 
   function clickHandlerPosition(e) {
@@ -153,8 +204,18 @@ const ScreenController = () => {
     }
   }
 
+  function clickHandlerSettings(_) {
+    document.querySelector("dialog").showModal();
+
+    const inputPlayerX = document.querySelector("input#settings-playerx");
+    const inputPlayerO = document.querySelector("input#settings-playero");
+
+    inputPlayerX.value = settings.getPlayerX();
+    inputPlayerO.value = settings.getPlayerO();
+  }
+
   function clickHandlerRestart() {
-    game = GameController("X", "O");
+    game = GameController(settings.getPlayerX(), settings.getPlayerO());
     updateScreen();
   }
 

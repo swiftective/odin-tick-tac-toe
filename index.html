@@ -20,10 +20,25 @@
         <i class="fa-solid fa-rotate-right"></i>
       </button>
       <h1>Tick Tac Toe</h1>
-      <button id="settings">
+      <button id="settings-button">
         <i class="fa-solid fa-gear"></i>
       </button>
     </nav>
+
+    <dialog>
+      <form method="dialog" id="settings-dialog">
+        <div>
+          <label for="settings-playerx">PlayerX</label>
+          <input name="settings-playerx" type="text" id="settings-playerx" />
+        </div>
+        <div>
+          <label for="settings-playero">PlayerO</label>
+          <input name="settings-playero" type="text" id="settings-playero" />
+        </div>
+        <input type="submit" value="save" />
+      </form>
+    </dialog>
+
     <div id="container">
       <h2 id="turn">Whose Turn?</h2>
       <div id="board">
