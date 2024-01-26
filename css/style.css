@@ -1,20 +1,14 @@
 :root {
-  --box-border: black;
-}
-
-html {
-  color-scheme: light dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --box-border: white;
-  }
+  --box-border: white;
+  --bg-primary: black;
+  colorschme: dark;
+  color: white;
 }
 
 body {
   display: flex;
   flex-direction: column;
+  background: var(--bg-primary);
 
   min-height: 100vh;
   margin: 0;
@@ -29,6 +23,7 @@ nav {
 button {
   border-radius: 5px;
   background-color: black;
+  color: white;
   font-size: 2rem;
   border: none;
   transition: scale 0.1s ease-in-out;
@@ -70,6 +65,8 @@ dialog::backdrop {
 }
 
 dialog {
+  background: var(--bg-primary);
+
   animation: slide-in 0.2s ease-in;
   border-radius: 10px;
   border: solid 1px white;
